@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 const APP_NAME = 'Nhà Sách Trí Tuệ';
+const BASE_URL = '/nhasach-php-thuan';
 const BASE_PATH = __DIR__.'/..';
 const SESSION_NAME = 'nhasach_session';
 
@@ -42,7 +43,7 @@ function e(?string $value): string
 
 function redirect(string $path): never
 {
-    header('Location: '.$path);
+    header('Location: '.BASE_URL.$path);
     exit;
 }
 
@@ -50,6 +51,14 @@ function require_login(): void
 {
     if (empty($_SESSION['user'])) {
         redirect('/login.php');
+    }
+
+}
+
+function require_customer(): void
+{
+    if (empty($_SESSION['customer'])) {
+        redirect('/customer-login.php');
     }
 }
 

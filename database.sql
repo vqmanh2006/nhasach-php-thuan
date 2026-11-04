@@ -39,6 +39,8 @@ CREATE TABLE customers (
     phone VARCHAR(30) NULL,
     email VARCHAR(190) NULL,
     address VARCHAR(255) NULL,
+    password VARCHAR(255) NULL,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -62,6 +64,23 @@ CREATE TABLE sale_items (
     subtotal DECIMAL(12,2) GENERATED ALWAYS AS (quantity * unit_price) STORED,
     CONSTRAINT fk_sale_items_sale FOREIGN KEY (sale_id) REFERENCES sales(id) ON DELETE CASCADE,
     CONSTRAINT fk_sale_items_book FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE RESTRICT
+) ENGINE=InnoDB;
+
+CREATE TABLE carts (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT UNSIGNED NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_carts_customer FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE cart_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    cart_id INT UNSIGNED NOT NULL,
+    book_id INT UNSIGNED NOT NULL,
+    quantity INT UNSIGNED NOT NULL DEFAULT 1,
+    UNIQUE KEY uq_cart_book (cart_id, book_id),
+    CONSTRAINT fk_cart_items_cart FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
+    CONSTRAINT fk_cart_items_book FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 INSERT INTO users (name, email, password, role) VALUES

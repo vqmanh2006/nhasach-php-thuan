@@ -22,5 +22,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><title>Đăng nhập - <?= e(APP_NAME) ?></title><link rel="stylesheet" href="/style.css"></head>
+<html lang="vi"><head><meta charset="utf-8"><title>Đăng nhập - <?= e(APP_NAME) ?></title><link rel="stylesheet" href="<?= BASE_URL ?>/style.css"></head>
 <body class="auth"><main class="auth-card"><div class="logo">NHÀ SÁCH TRÍ TUỆ</div><h1>Đăng nhập quản trị</h1><?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?><form method="post"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><label>Email<input type="email" name="email" required autofocus></label><label>Mật khẩu<input type="password" name="password" required></label><button>Đăng nhập</button></form><p class="hint">Demo: admin@nhasach.local / 1234</p></main></body></html>
