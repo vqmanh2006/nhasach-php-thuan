@@ -37,7 +37,7 @@ CREATE TABLE customers (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     phone VARCHAR(30) NULL,
-    email VARCHAR(190) NULL,
+    email VARCHAR(190) NULL UNIQUE,
     address VARCHAR(255) NULL,
     password VARCHAR(255) NULL,
     is_active TINYINT(1) NOT NULL DEFAULT 1,
